@@ -7,17 +7,17 @@ public class PostCell {
     private Shipment shipment;
     private CellStatus cellStatus;
 
-    PostCell(Dimensions dimensions) {
+    public PostCell(Dimensions dimensions) {
         this.dimensions = dimensions;
         shipment = null;
         cellStatus = CellStatus.WORK;
     }
 
-    private boolean hasShipment() {
+    boolean hasShipment() {
         return shipment != null;
     }
 
-    private boolean canAcceptShipment(Shipment shipment) {
+    boolean canAcceptShipment(Shipment shipment) {
         return !hasShipment()
                 || shipment.dimensions().compareTo(dimensions)
                 || cellStatus != CellStatus.WORK;
