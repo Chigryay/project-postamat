@@ -7,7 +7,7 @@ public class PostCell {
     private Shipment shipment;
     private CellStatus cellStatus;
 
-    PostCell(Dimensions dimensions) {
+    public PostCell(Dimensions dimensions) {
         this.dimensions = dimensions;
         shipment = null;
         cellStatus = CellStatus.WORK;
@@ -19,24 +19,22 @@ public class PostCell {
 
     private boolean canAcceptShipment(Shipment shipment) {
         return !hasShipment()
-                || shipment.dimensions().compareTo(dimensions)
-                || cellStatus != CellStatus.WORK;
+                && dimensions.compareTo(shipment.dimensions())
+                && cellStatus == CellStatus.WORK;
     }
 
     boolean putShipment(Shipment shipment) {
         if (canAcceptShipment(shipment)) {
             this.shipment = shipment;
-            System.out.println("Посылка успешно загружена");
             return true;
         } else {
-            System.out.println("Посылка не загружена");
             return false;
         }
     }
 
-    Shipment extractShipment() {
-        Shipment shipment = cloneShipment();
+     Shipment extractShipment() {
         if (hasShipment()) {
+            Shipment shipment = cloneShipment();
             this.shipment = null;
             return shipment;
         } else {
@@ -61,4 +59,9 @@ public class PostCell {
     private Shipment cloneShipment() {
         return new Shipment(this.shipment.dimensions(), this.shipment.weight(), this.shipment.description());
     }
+
+    public Shipment getShipment() {
+        return shipment;
+    }
 }
+
