@@ -13,11 +13,11 @@ public class PostCell {
         cellStatus = CellStatus.WORK;
     }
 
-    private boolean hasShipment() {
+    boolean hasShipment() {
         return shipment != null;
     }
 
-    private boolean canAcceptShipment(Shipment shipment) {
+    boolean canAcceptShipment(Shipment shipment) {
         return !hasShipment()
                 && dimensions.compareTo(shipment.dimensions())
                 && cellStatus == CellStatus.WORK;
